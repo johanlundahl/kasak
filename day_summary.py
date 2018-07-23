@@ -6,4 +6,4 @@ returned = len([c for c in washes if c.returned == 1])
 commented = len([c for c in washes if c.comment != ''])
 
 message = '{} hämtade, {} lämnade, {} med kommentar '.format(picked_up, returned, commented)
-ststs.post_to_slack(message)
+stats.post_to_slack(message)
