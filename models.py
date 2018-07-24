@@ -11,7 +11,7 @@ class Week:
     
     @classmethod
     def from_day(self, day):
-        return Week.from_date(day.date())
+        return Week.from_date(day.datetime())
 
     def weekdays(self):
         weekdays = []
@@ -37,23 +37,29 @@ class Day:
         return Day.from_datetime(datetime.now())
     
     def next(self):
-        next = self.date() + timedelta(days=1)
+        next = self.datetime() + timedelta(days=1)
         return Day(next.strftime('%Y-%m-%d'))
     
     def is_weekday(self):
-        return self.date().weekday() < 5
-        
+        return self.datetime().weekday() < 5
+
     def date(self):
+        return self.day    
+    
+    def datetime(self):
         return datetime.strptime(self.day, '%Y-%m-%d')
 
     def name(self):
-        return self.date().strftime('%A')
+        return self.datetime().strftime('%A')
+
+    def short_name(self):
+        return self.datetime().strftime('%a')
     
     def __eq__(self, other):
         return self.date() == other.date()
         
     def __le__(self, other):
-        return self.date() <= other.date()
+        return self.datetime() <= other.datetime()
     
     def __str__(self):
         return self.day
