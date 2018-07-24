@@ -22,7 +22,8 @@ def collect_washes(start_day, end_day):
     total_car_washes = []
     a_day = start_day
     while a_day <= end_day:
-        total_car_washes = total_car_washes + get_washes_for(a_day)
+        washes, code = get_washes_for(a_day)
+        total_car_washes = total_car_washes + washes
         a_day = a_day.next()
         time.sleep(1)
     return total_car_washes
