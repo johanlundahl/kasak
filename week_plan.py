@@ -8,9 +8,14 @@ today = Day.today()
 week = Week.from_day(today)
 weekdays = week.weekdays()
 
-message = 'Bokningar för vecka {}:\n'.format(week._number)
+print(weekdays[0], weekdays[-1])
+washes = stats.collect_washes(weekdays[0], weekdays[-1])
+
+message = '{} bokningar f  r vecka {}:\n'.format(len(washes), week._number)
 for day in weekdays:
-    washes, code = stats.get_washes_for(day)
-    message += '{} {} bilar\n'.format(day.name(), len(washes))
+    day_nbr = len([w for w in washes if w.date==day.date()])
+    message += '{} {}'.format(day.short_name(), day_nbr)
+    separator = ', ' if day.next().is_weekday() else ''
+    message += separator   
 
 stats.post_to_slack(message)
