@@ -11,7 +11,7 @@ weekdays = week.weekdays()
 print(weekdays[0], weekdays[-1])
 washes = stats.collect_washes(weekdays[0], weekdays[-1])
 
-message = '{} bokningar f  r vecka {}:\n'.format(len(washes), week._number)
+message = '{} bokningar för vecka {}:\n'.format(len(washes), week._number)
 for day in weekdays:
     day_nbr = len([w for w in washes if w.date==day.date()])
     message += '{} {}'.format(day.short_name(), day_nbr)
