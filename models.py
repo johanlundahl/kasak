@@ -65,11 +65,13 @@ class Day:
         return self.day
 
 class CarWash:
-    def __init__(self, reg, date, pickup_time, return_time, company, picked_up=False, returned=False, comment=''):
+    def __init__(self, reg, date, pickup_time, return_time, company, picked_up=False, returned=False, comment='', pickup_assigned=None, return_assigned=None):
         self.reg = reg
         self.date = date
         self.pickup_time = pickup_time
         self.return_time = return_time
+        self.pickup_assigned = pickup_assigned
+        self.return_assigned = return_assigned
         self.company = company
         self.picked_up = int(picked_up)
         self.returned = int(returned)
