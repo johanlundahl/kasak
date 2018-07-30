@@ -14,7 +14,9 @@ def decode(json_object):
                        company=json_object['customerCompany'],
                        picked_up=json_object['carStatusArrived'],
                        returned=json_object['carStatusDeparted'],
-                       comment=json_object['bookingNotification'])
+                       comment=json_object['bookingNotification'],
+                       return_assigned=json_object['bookingPickupDriverID']!='',
+                       pickup_assigned=json_object['bookingPickupDriverID']!='')
     return json_object 
 
         
