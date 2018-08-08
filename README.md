@@ -11,8 +11,6 @@ The following modules installed
 $ apt-get install python-requests
 ```
 
-Git need to by installed...
-
 ### Installing
 
 Start by cloning the git repo
