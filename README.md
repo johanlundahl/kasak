@@ -6,6 +6,7 @@ creates a summary for the activity at Kasak and post it to a Slack app.
 ### Prerequisites
 
 The following modules installed
+
 ...
 $ apt-get install python-requests
 ...
