@@ -5,7 +5,7 @@ creates a summary for the activity at Kasak and post it to a Slack app.
 
 ### Prerequisites
 
-The following modules installed
+The requests module need to be installed
 
 ```
 $ apt-get install python-requests
@@ -22,7 +22,13 @@ There are two parameters that need to be defined for the scripts to function pro
 ```
 $ touch kasak_params.py
 ``` 
-And define URL's to a Slack app and the Kasak app that contains the data
+
+Edit the newly created file
+````
+$ nano kasak_params.py
+```
+
+Define URL's to a Slack app and the Kasak app that contains the data in kasak_params.py
 ```
 slack_webhook_url = 'url-to-a-slack-app'
 kasak_carstatus_url = 'url-to-the-kasak-carstatus-endpoint'
@@ -40,4 +46,5 @@ Define which time the different jobs should be run at, e.g.
 0 8 * * 1-5 python3 /home/pi/kasak_report/day_plan.py
 0 16 * * 1-5 python3 /home/pi/kasak_report/day_summary.py
 15 16 * * 5 python3 /home/pi/kasak_report/week_summary.py
+```
 
