@@ -24,7 +24,7 @@ $ touch kasak_params.py
 ``` 
 
 Edit the newly created file
-````
+```
 $ nano kasak_params.py
 ```
 
