@@ -32,8 +32,12 @@ def collect_washes(start_day, end_day):
 
 def get_washes_for(day):
     response = requests.get(url = kp.kasak_carstatus_url.format(day))
-    objs = json.loads(response.text, object_hook=decode)
-    return [objs[i] for i in objs], response.status_code
+    try:
+        objs = json.loads(response.text, object_hook=decode)
+        return [objs[i] for i in objs], response.status_code
+    except ValueError:
+        return [], response.status_code
+    
 
 def get_todays_washes():
     today = Day.today()
