@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from datetime import datetime, timedelta
 
 class Week:
@@ -76,6 +77,9 @@ class CarWash:
         self.picked_up = int(picked_up)
         self.returned = int(returned)
         self.comment = comment
+
+    def to_csv(self):
+        return '{};{};{};{};{};{};'.format(self.date, self.reg, self.company, self.picked_up, self.returned, self.comment)
 
     def __str__(self):
         return '{} {} {} {} {}'.format(self.reg, self.date, self.picked_up, self.returned, self.comment)       
