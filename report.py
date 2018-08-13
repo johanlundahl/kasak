@@ -20,7 +20,8 @@ def fetch_bookings(start_day, end_day):
 def bookings_to_output(bookings, file_suffix):
     with open('report_{}.csv'.format(file_suffix), 'w') as out:
         for booking in bookings:
-            out.write(booking.to_csv() +'/n')
+            print(booking)
+            out.write(booking.to_csv() +'\n')
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Will generate a report of booking between two dates')
