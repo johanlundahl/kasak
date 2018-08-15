@@ -1,2 +1,4 @@
 *.pyc
 kasak_params.py
+*.csv
+*.xslx
