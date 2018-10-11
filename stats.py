@@ -43,10 +43,12 @@ def get_todays_washes():
     today = Day.today()
     return get_washes_for(today)
 
-def post_to_slack(message):
-     payload = {"text": "{}".format(message)}
-     r = requests.post(url = kp.slack_webhook_url, json = payload)
-     print(r.status_code, r.text)
+def post_to_slack(message, image_url = None):
+    payload = {"text": "{}".format(message)}
+    if image_url is not None:
+        payload['attachments'] = [{'image_url': image_url}]
+    r = requests.post(url = kp.slack_webhook_url, json = payload)
+    print(r.status_code, r.text)
     
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
