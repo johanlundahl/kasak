@@ -45,4 +45,4 @@ success_rate = percent(sum(returned)/total)
 comment_rate = percent(sum(commented)/total)
 message = 'Vecka {} tvättades {}% av bokningarna. {}% med kommentar. '.format(week._number, success_rate, comment_rate)
 
-stats.post_to_slack(message)
+stats.post_to_slack(message, url)
