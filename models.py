@@ -13,7 +13,7 @@ class Week:
     @classmethod
     def from_day(self, day):
         return Week.from_date(day.datetime())
-
+    
     def weekdays(self):
         weekdays = []
         day = Day.from_datetime(self.first_date())
@@ -64,6 +64,9 @@ class Day:
     
     def __str__(self):
         return self.day
+    
+    def __repr__(self):
+        return self.short_name()
 
 class CarWash:
     def __init__(self, reg, date, pickup_time, return_time, company, picked_up=False, returned=False, comment='', pickup_assigned=None, return_assigned=None):
