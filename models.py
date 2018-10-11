@@ -5,6 +5,11 @@ class Week:
     def __init__(self, of_year, number):
         self._of_year = of_year
         self._number = number
+    
+    @classmethod
+    def current(self):
+        today = Day.today()
+        return Week.from_day(today)
         
     @classmethod
     def from_date(self, date):
