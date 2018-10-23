@@ -13,7 +13,7 @@
   </head>
   <body>    
     <div class="content">
-        {{ title }}
+        <h1>{{ title }}</h1>
         <div class="chart-container" style="position: relative; height:50vh; width:90vw">
             <canvas id="myChart"></canvas>
         </div>
@@ -33,21 +33,24 @@
                 // The data for our dataset
                 data: {
                     labels: labels,
-                    datasets: [{
-                        label: "Bokningar",
-                        backgroundColor: 'rgb(255, 99, 132)',
-                        borderColor: 'rgb(255, 99, 132)',
-                        data: {{values}},
-                    }]
+                    datasets: [
+                        {% for name, serie, color in bars%}
+                        {
+                        label: '{{name}}',
+                        backgroundColor: '{{color}}',
+                        data: {{serie}},
+                        },
+                        {% endfor %}
+                    ]
                 },
-
-                // Configuration options go here
                 options: {
                     scales: {
                         yAxes: [{
-                            ticks: {
-                                beginAtZero:true
-                            }
+                            ticks: { beginAtZero:true },
+                            stacked: true
+                        }],
+                        xAxes: [{
+                            stacked: true
                         }]
                     }
                 }
