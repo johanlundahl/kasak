@@ -1,18 +1,20 @@
-import plotly.plotly as py
-import plotly.graph_objs as go
-import plotly.io as pio
-
-
 class StackedBar():
-    def __init__(self, x):
+    def __init__(self, title, labels):
         self._data = []
-        self._x = x
-        self._layout = go.Layout(barmode = 'stack')
-        
-    def add_bar(self, lst, label = None):
-        bar = go.Bar(x = self._x, y = lst, name = label)
-        self._data.append(bar)
+        self._title = title
+        self._labels = labels
     
-    def save(self, path):
-        fig = go.Figure(data = self._data, layout = self._layout)
-        pio.write_image(fig, path)
+    @property
+    def title(self):
+        return self._title
+    
+    @property
+    def labels(self):
+        return self._labels
+    
+    def add_bar(self, name, serie, color):
+        self._data.append((name, serie, color))
+    
+    def get_bars(self):
+        return self._data
+        
