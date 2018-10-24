@@ -1,6 +1,7 @@
 from models import Day, Week
 import stats as stats
 import locale
+import slack
 
 #locale.setlocale(locale.LC_ALL, 'sv_SE')
 
@@ -18,4 +19,4 @@ for day in weekdays:
     separator = ', ' if day.next().is_weekday() else ''
     message += separator   
 
-stats.post_to_slack(message)
+slack.post(message)

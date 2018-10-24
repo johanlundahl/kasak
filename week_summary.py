@@ -1,6 +1,7 @@
 from models import Day, Week
 import stats as stats
 import chart
+import slack
 
 def percent(number):
     return int(100*number)
@@ -13,16 +14,19 @@ unknown_check = lambda x: x.returned == 0 and x.comment == ''
 commented_check = lambda x: x.returned == 0 and x.comment != ''
 returned_check = lambda x: x.returned == 1
 
+
+def get_bookings_for(weekdays):
+    days = []
+    for day in weekdays:
+        washes, code = stats.get_washes_for(day)
+        days.append(washes)
+    return days
+
     
-today = Day.today()
-week = Week.from_day(today)
+week = Week.current()
 weekdays = week.weekdays()
 
-week_washes = []
-days = []
-for day in weekdays:
-    washes, code = stats.get_washes_for(day)
-    days.append(washes)
+days = get_bookings_for(weekdays)
 
 total = sum(list(map(len, days)))
     
@@ -45,4 +49,5 @@ success_rate = percent(sum(returned)/total)
 comment_rate = percent(sum(commented)/total)
 message = 'Vecka {} tvättades {}% av bokningarna. {}% med kommentar. '.format(week._number, success_rate, comment_rate)
 
-stats.post_to_slack(message, url)
+print(message)
+#slack.post(message, url)
