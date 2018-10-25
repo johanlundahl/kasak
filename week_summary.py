@@ -48,6 +48,6 @@ url = kp.chart_url.format(week._of_year, week._number)
 
 success_rate = percent(sum(returned)/total)
 comment_rate = percent(sum(commented)/total)
-message = 'Vecka {} tvättades {}% av bokningarna. {}% med kommentar. Veckans summering {}'.format(week._number, success_rate, comment_rate, url)
+message = 'Vecka {} tvättades {}% av bokningarna. {}% med kommentar. Veckans summering <{}|Veckans summering>'.format(week._number, success_rate, comment_rate, url)
 
 slack.post(message, url)
