@@ -2,6 +2,7 @@ from models import Day, Week
 import stats as stats
 import chart
 import slack
+import kasak_params as kp
 
 def percent(number):
     return int(100*number)
@@ -35,19 +36,18 @@ commented = filter_count(days, commented_check)
 returned = filter_count(days, returned_check)
 
 
-x_axis = list(map(lambda x: x.short_name(), weekdays))
+#x_axis = list(map(lambda x: x.short_name(), weekdays))
 
-chart1 = chart.StackedBar(x_axis)
-chart1.add_bar(unknown, 'okända')
-chart1.add_bar(commented, 'kommenterade')
-chart1.add_bar(returned, 'levererade')
-chart1.save('charts/{}_{}.png'.format(week._of_year, week._number))
+#chart1 = chart.StackedBar(x_axis)
+#chart1.add_bar(unknown, 'okända')
+#chart1.add_bar(commented, 'kommenterade')
+#chart1.add_bar(returned, 'levererade')
+#chart1.save('charts/{}_{}.png'.format(week._of_year, week._number))
 
-url = 'http://31.208.165.29:5010/charts/year/{}/week/{}'.format(week._of_year, week._number)
+url = kp.chart_url.format(week._of_year, week._number)
 
 success_rate = percent(sum(returned)/total)
 comment_rate = percent(sum(commented)/total)
-message = 'Vecka {} tvättades {}% av bokningarna. {}% med kommentar. '.format(week._number, success_rate, comment_rate)
+message = 'Vecka {} tvättades {}% av bokningarna. {}% med kommentar. Veckans summering {}'.format(week._number, success_rate, comment_rate, url)
 
-print(message)
-#slack.post(message, url)
+slack.post(message, url)
