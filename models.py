@@ -19,6 +19,10 @@ class Week:
     def from_day(self, day):
         return Week.from_date(day.datetime())
     
+    @property
+    def number(self):
+        return self._number
+    
     def weekdays(self):
         weekdays = []
         day = Day.from_datetime(self.first_date())

@@ -12,12 +12,26 @@
     <title>{{ title }}</title>
   </head>
   <body>    
-    <div class="content">
-        <h1>{{ title }}</h1>
-        <div class="chart-container" style="position: relative; height:50vh; width:90vw">
-            <canvas id="myChart"></canvas>
+        <div class="jumbotron">
+        <h2>{{ title }}</h2>
         </div>
-        
+        <div class="container" style="margin-top: 4vh;">
+            <div class="row">
+                <div class="col" align="center">
+                    <h1>{{ total }}</h1>
+                    <div>bokningar</div>
+                </div>
+                <div class="col" align="center">
+                    <h1>{{ traceable }}%</h1>
+                    <div>spårbarhet</div>
+                </div>
+            </div>
+        </div>
+        <div class="container" style="margin-top: 4vh;">
+            <div class="chart-container" style="position: relative; height:50vh; width:90vw">
+                <canvas id="myChart"></canvas>
+            </div>
+        </div>        
         <script>
             var labels = [
                 {% for item in labels %}
@@ -44,18 +58,21 @@
                     ]
                 },
                 options: {
+                    legend: {
+                        position: 'bottom'
+                    },
                     scales: {
                         yAxes: [{
                             ticks: { beginAtZero:true },
                             stacked: true
                         }],
                         xAxes: [{
-                            stacked: true
+                            stacked: true,
+                            barPercentage: 0.4
                         }]
                     }
                 }
             });         
         </script>
-    </div>
   </body>
 </html>
