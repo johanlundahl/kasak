@@ -4,10 +4,19 @@ from flask import render_template
 import stats as stats
 from models import Week
 from chart import StackedBar
+from flask_basicauth import BasicAuth
+import kasak_params as kp
 
 app = Flask(__name__)
+app.config['BASIC_AUTH_USERNAME'] = kp.username
+app.config['BASIC_AUTH_PASSWORD'] = kp.password
+
+basic_auth = BasicAuth(app)
+
+
 
 @app.route("/charts/year/<int:year_nbr>/week/<int:week_nbr>", methods=['GET'])
+@basic_auth.required
 def a_week(year_nbr, week_nbr):
     week = Week(year_nbr, week_nbr)
     weekdays = week.weekdays()
@@ -17,6 +26,7 @@ def a_week(year_nbr, week_nbr):
     #return send_file('charts/{}_{}.png'.format(year_nbr, week_nbr), mimetype='image/png')
 
 @app.route("/charts/current-week", methods=['GET'])
+@basic_auth.required
 def current_week():
     week = Week.current()
     weekdays = week.weekdays()
