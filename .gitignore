@@ -2,3 +2,5 @@
 kasak_params.py
 *.csv
 *.xlsx
+*.save*
+*.log
