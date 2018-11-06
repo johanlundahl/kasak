@@ -6,6 +6,9 @@ from models import Week
 from chart import StackedBar
 from flask_basicauth import BasicAuth
 import kasak_params as kp
+from OpenSSL import SSL
+import os
+
 
 app = Flask(__name__)
 app.config['BASIC_AUTH_USERNAME'] = kp.username
@@ -48,4 +51,8 @@ def week_chart(weekdays, week_nbr):
     return render_template('week_chart.html', labels=chart.labels, bars=chart.get_bars(), title = chart.title, total=sum(week_bookings), traceable=traceable)
     
 if __name__ == '__main__':    
-    app.run(host='0.0.0.0', port=5010)
+    context = SSL.Context(SSL.SSLv23_METHOD)
+    crt = os.path.join(os.path.dirname(__file__), 'trycatch.nu.crt')
+    key = os.path.join(os.path.dirname(__file__), 'trycatch.nu.key')
+    context = (crt, key)
+    app.run(host='0.0.0.0', ssl_context=context, port=443)
