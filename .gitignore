@@ -4,3 +4,5 @@ kasak_params.py
 *.xlsx
 *.save*
 *.log
+*.crt
+*.key
