@@ -25,9 +25,6 @@ def a_week(year_nbr, week_nbr):
     weekdays = week.weekdays()
     return week_chart(weekdays, week.number)    
     
-    
-    #return send_file('charts/{}_{}.png'.format(year_nbr, week_nbr), mimetype='image/png')
-
 @app.route("/charts/current-week", methods=['GET'])
 @basic_auth.required
 def current_week():
@@ -52,7 +49,7 @@ def week_chart(weekdays, week_nbr):
     
 if __name__ == '__main__':    
     context = SSL.Context(SSL.SSLv23_METHOD)
-    crt = os.path.join(os.path.dirname(__file__), 'trycatch.nu.crt')
-    key = os.path.join(os.path.dirname(__file__), 'trycatch.nu.key')
+    crt = os.path.join(os.path.dirname(__file__), 'certificate/trycatch.nu.crt')
+    key = os.path.join(os.path.dirname(__file__), 'certificate/trycatch.nu.key')
     context = (crt, key)
     app.run(host='0.0.0.0', ssl_context=context, port=443)
