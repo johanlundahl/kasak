@@ -3,7 +3,7 @@ from flask import send_file
 from flask import render_template
 import stats as stats
 from models import Week
-from chart import StackedBar
+from chart import Chart
 from flask_basicauth import BasicAuth
 import kasak_params as kp
 from OpenSSL import SSL
@@ -49,11 +49,11 @@ def week_chart(weekdays, week_nbr):
     unknown = stats.filter_count(days, stats.unknown_check)
     traceable = round((sum(ok) + sum(commented)) * 100 / sum(week_bookings))
 
-    chart = StackedBar(title = 'Vecka {}'.format(week_nbr), labels = [d.name() for d in weekdays])
-    chart.add_bar('Tvättade', ok, "#4BC0C0")
-    chart.add_bar('Kommenterade', commented, "#36A2EB")
-    chart.add_bar('Okända', unknown, "#FF6384")
-    return render_template('week_chart.html', labels=chart.labels, bars=chart.get_bars(), title = chart.title, total=sum(week_bookings), traceable=traceable)
+    chart = Chart(title = 'Vecka {}'.format(week_nbr), labels = [d.name() for d in weekdays])
+    chart.add_serie('Tvättade', ok, "#4BC0C0")
+    chart.add_serie('Kommenterade', commented, "#36A2EB")
+    chart.add_serie('Okända', unknown, "#FF6384")
+    return render_template('week_chart.html', labels=chart.labels, bars=chart.get_series(), title = chart.title, total=sum(week_bookings), traceable=traceable)
     
 if __name__ == '__main__':    
     context = SSL.Context(SSL.SSLv23_METHOD)
