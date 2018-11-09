@@ -25,12 +25,20 @@ def a_week(year_nbr, week_nbr):
     weekdays = week.weekdays()
     return week_chart(weekdays, week.number)    
     
-@app.route("/charts/current-week", methods=['GET'])
+@app.route("/weeks/current", methods=['GET'])
 @basic_auth.required
 def current_week():
     week = Week.current()
     weekdays = week.weekdays()
     return week_chart(weekdays, week.number)
+
+@app.route("/days/current", methods=['GET'])
+@basic_auth.required
+def current_day():
+    #chart = StackedBar(title='Dag X', labels=['one', 'two'])
+    #chart.add_bar('Ones', [1])
+    #return render_template('day.html', labels=chart.labels, bars=chart.get_bars(), title=chart.title)
+    return render_template('day.html', labels=['one', 'two'], bars=None, title='Dag X')
 
 def week_chart(weekdays, week_nbr):
     days = stats.get_washes_as_list(weekdays)
@@ -42,9 +50,9 @@ def week_chart(weekdays, week_nbr):
     traceable = round((sum(ok) + sum(commented)) * 100 / sum(week_bookings))
 
     chart = StackedBar(title = 'Vecka {}'.format(week_nbr), labels = [d.name() for d in weekdays])
-    chart.add_bar('Tvättade', ok, "#34A853")
-    chart.add_bar('Kommenterade', commented, "#4285F4")
-    chart.add_bar('Okända', unknown, "#8094B7")
+    chart.add_bar('Tvättade', ok, "#4BC0C0")
+    chart.add_bar('Kommenterade', commented, "#36A2EB")
+    chart.add_bar('Okända', unknown, "#FF6384")
     return render_template('week_chart.html', labels=chart.labels, bars=chart.get_bars(), title = chart.title, total=sum(week_bookings), traceable=traceable)
     
 if __name__ == '__main__':    
