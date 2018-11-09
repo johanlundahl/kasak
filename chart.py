@@ -1,4 +1,4 @@
-class StackedBar():
+class Chart():
     def __init__(self, title, labels):
         self._data = []
         self._title = title
@@ -12,9 +12,9 @@ class StackedBar():
     def labels(self):
         return self._labels
     
-    def add_bar(self, name, serie, color):
+    def add_serie(self, name, serie, color):
         self._data.append((name, serie, color))
     
-    def get_bars(self):
+    def get_series(self):
         return self._data
         
