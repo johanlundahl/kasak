@@ -40,6 +40,12 @@ def current_day():
     #return render_template('day.html', labels=chart.labels, bars=chart.get_bars(), title=chart.title)
     return render_template('day.html', labels=['one', 'two'], bars=None, title='Dag X')
 
+@app.route("/overview", methods=['GET'])
+@basic_auth.required
+def client_overview():
+    return render_template('overview.html')
+
+    
 def week_chart(weekdays, week_nbr):
     days = stats.get_washes_as_list(weekdays)
     week_bookings = list(map(len, days))
