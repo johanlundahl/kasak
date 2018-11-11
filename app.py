@@ -43,7 +43,11 @@ def current_day():
 @app.route("/overview", methods=['GET'])
 @basic_auth.required
 def client_overview():
-    return render_template('overview.html')
+    cars = []
+    cars.append(('SUD810', '08:00', '12:00'))
+    cars.append(('LZT044', '09:00', '10:30'))
+    cars.append(('ABC123', '08:30', '11:00'))
+    return render_template('overview.html', cars = cars)
 
     
 def week_chart(weekdays, week_nbr):

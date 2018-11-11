@@ -3,17 +3,22 @@
   
 {% block page %}
 <div class="container-fluid">
-<h1>Overview</h1>
+    <h1>Overview</h1>
 
-<div class="row">
-    <div class="col-sm">
-      One
-    </div>
-    <div class="col-sm">
-      Two
-    </div>
-    <div class="col-sm">
-      Three
+    <div class="container">
+    {% for reg, start, end in cars %}
+        <div class="row">
+            <div class="col-6">
+              {{ reg }}
+            </div>
+            <div class="col-sm">
+              {{ start }}
+            </div>
+            <div class="col-sm">
+              {{ end }}
+            </div>
+        </div>
+    {% endfor %}
     </div>
 </div>
 {% endblock %}
