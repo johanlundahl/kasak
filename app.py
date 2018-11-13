@@ -1,22 +1,20 @@
+from chart import Chart
 from flask import Flask 
 from flask import send_file
 from flask import render_template
-import stats as stats
-from models import Week
-from chart import Chart
 from flask_basicauth import BasicAuth
 import kasak_params as kp
+from models import Week
+import stats as stats
 from OpenSSL import SSL
 import os
-
+import sys
 
 app = Flask(__name__)
+
 app.config['BASIC_AUTH_USERNAME'] = kp.username
 app.config['BASIC_AUTH_PASSWORD'] = kp.password
-
 basic_auth = BasicAuth(app)
-
-
 
 @app.route("/charts/year/<int:year_nbr>/week/<int:week_nbr>", methods=['GET'])
 @basic_auth.required
@@ -77,8 +75,11 @@ def filtered_count(lst):
     return ok, commented, unknown
     
 if __name__ == '__main__':    
-    context = SSL.Context(SSL.SSLv23_METHOD)
-    crt = os.path.join(os.path.dirname(__file__), 'certificate/trycatch.nu.crt')
-    key = os.path.join(os.path.dirname(__file__), 'certificate/trycatch.nu.key')
-    context = (crt, key)
-    app.run(host='0.0.0.0', ssl_context=context, port=443)
+    if 'win32' in sys.platform:
+        app.run(host='0.0.0.0')
+    else:
+        context = SSL.Context(SSL.SSLv23_METHOD)
+        crt = os.path.join(os.path.dirname(__file__), 'certificate/trycatch.nu.crt')
+        key = os.path.join(os.path.dirname(__file__), 'certificate/trycatch.nu.key')
+        context = (crt, key)
+        app.run(host='0.0.0.0', ssl_context=context, port=443)
