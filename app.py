@@ -1,7 +1,5 @@
 from chart import Chart
-from flask import Flask 
-from flask import send_file
-from flask import render_template
+from flask import Flask, render_template, url_for, redirect, send_file
 from flask_basicauth import BasicAuth
 import kasak_params as kp
 from models import Week
@@ -15,6 +13,11 @@ app = Flask(__name__)
 app.config['BASIC_AUTH_USERNAME'] = kp.username
 app.config['BASIC_AUTH_PASSWORD'] = kp.password
 basic_auth = BasicAuth(app)
+
+@app.route("/", methods=['GET'])
+@basic_auth.required
+def root():
+    return redirect(url_for('overview'))
 
 @app.route("/charts/year/<int:year_nbr>/week/<int:week_nbr>", methods=['GET'])
 @basic_auth.required
@@ -43,11 +46,11 @@ def current_day():
 
 @app.route("/overview", methods=['GET'])
 @basic_auth.required
-def client_overview():
+def overview():
     cars = []
     washes, http_code = stats.get_todays_washes()
     cars = [(x.reg, x.pickup_time, x.return_time) for x in washes]
-    return render_template('overview.html', cars = cars)
+    return render_template('overview.html', title='Översikt', cars = cars)
 
     
 def week_chart(weekdays, week_nbr):
