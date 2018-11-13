@@ -12,7 +12,7 @@
     background-color: white;
     position: fixed;
     z-index: 1;
-    top: 50px;
+    top: 0px;
     right: 0;
     left: 0;
     overflow-x: hidden;
@@ -20,4 +20,25 @@
 
 .navbar-nav {
     text-align: center;
+    position: relative;
+    top: 25%; /* 25% from the top */
+    width: 100%; /* 100% width */
+    text-align: center; /* Centered text/links */
+    margin-top: 30px; /* 30px top margin to avoid conflict with the close button on smaller screens */
+}
+
+.navbar-nav a {
+    padding: 8px;
+    text-decoration: none;
+    font-size: 36px;
+    color: #818181;
+    display: block; /* Display block instead of inline */
+    transition: 0.3s; /* Transition effects on hover (color) */
+}
+
+.closebtn {
+    position: absolute;
+    top: 10px;
+    right: 45px;
+    font-size: 60px;
 }
