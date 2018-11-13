@@ -102,4 +102,7 @@ class CarWash:
         return '{};{};{};{};{};{};'.format(self.date, self.reg, self.company, self.picked_up, self.returned, self.comment)
 
     def __str__(self):
-        return '{} {} {} {} {}'.format(self.reg, self.date, self.picked_up, self.returned, self.comment)       
+        return '{} {} {} {} {}'.format(self.reg, self.date, self.picked_up, self.returned, self.comment)
+        
+    def __repr__(self):
+        return str(self)
