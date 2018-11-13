@@ -1,0 +1,8 @@
+html {
+    font-family: 'Lato', 'Helvetica', 'Arial';
+}
+
+.car-list > :nth-child(even){
+    background-color: rgba(0,0,0,0.05);
+}
+
