@@ -49,7 +49,7 @@ def current_day():
 def overview():
     cars = []
     washes, http_code = stats.get_todays_washes()
-    cars = [(x.reg, x.pickup_time, x.return_time) for x in washes]
+    cars = [(x.reg, x.pickup_time[:5], x.return_time[:5]) for x in washes]
     return render_template('overview.html', title='Översikt', cars = cars)
 
     
