@@ -45,16 +45,13 @@ def current_day():
 @basic_auth.required
 def client_overview():
     cars = []
-    cars.append(('SUD810', '08:00', '12:00'))
-    cars.append(('LZT044', '09:00', '10:30'))
-    cars.append(('ABC123', '08:30', '11:00'))
-    cars.append(('III111', '09:45', '13:00'))
+    washes, http_code = stats.get_todays_washes()
+    cars = [(x.reg, x.pickup_time, x.return_time) for x in washes]
     return render_template('overview.html', cars = cars)
 
     
 def week_chart(weekdays, week_nbr):
     days = stats.get_washes_as_list(weekdays)
-    print(days)
     week_bookings = list(map(len, days))
 
     ok = stats.filter_count(days, stats.returned_check)
