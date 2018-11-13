@@ -35,8 +35,12 @@ def current_week():
 @app.route("/days/current", methods=['GET'])
 @basic_auth.required
 def current_day():
-    #chart = StackedBar(title='Dag X', labels=['one', 'two'])
-    #chart.add_bar('Ones', [1])
+    chart = Chart(title='Dag X', labels=['one', 'two'])
+    washes = get_todays_washes()
+    ok, commented, unknown = filtered_count(washes)
+    chart.add_serie('Tvättade', ok, "#4BC0C0")
+    chart.add_serie('Kommenterade', commented, "#36A2EB")
+    chart.add_serie('Okända', unknown, "#FF6384")
     #return render_template('day.html', labels=chart.labels, bars=chart.get_bars(), title=chart.title)
     return render_template('day.html', labels=['one', 'two'], bars=None, title='Dag X')
 
@@ -47,6 +51,7 @@ def client_overview():
     cars.append(('SUD810', '08:00', '12:00'))
     cars.append(('LZT044', '09:00', '10:30'))
     cars.append(('ABC123', '08:30', '11:00'))
+    cars.append(('III111', '09:45', '13:00'))
     return render_template('overview.html', cars = cars)
 
     
@@ -64,6 +69,12 @@ def week_chart(weekdays, week_nbr):
     chart.add_serie('Kommenterade', commented, "#36A2EB")
     chart.add_serie('Okända', unknown, "#FF6384")
     return render_template('week_chart.html', labels=chart.labels, bars=chart.get_series(), title = chart.title, total=sum(week_bookings), traceable=traceable)
+
+def filtered_count(lst):
+    ok = stats.filter_count(lst, stats.returned_check)
+    commented = stats.filter_count(lst, stats.commented_check)
+    unknown = stats.filter_count(lst, stats.unknown_check)
+    return ok, commented, unknown
     
 if __name__ == '__main__':    
     context = SSL.Context(SSL.SSLv23_METHOD)
