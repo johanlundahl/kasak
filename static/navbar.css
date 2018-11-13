@@ -33,13 +33,13 @@
     font-size: 36px;
     color: #818181;
     display: block; /* Display block instead of inline */
-    /*transition: 0.3s;*/ /* Transition effects on hover (color) */
+    font-weight: normal;
 }
 
 .closebtn {
     position: absolute;
     text-decoration: none;
-    top: 10px;
-    right: 45px;
-    font-size: 60px;
+    top: 5px;
+    right: 35px;
+    font-size: 1.8rem;
 }
