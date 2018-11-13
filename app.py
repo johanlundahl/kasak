@@ -33,14 +33,13 @@ def current_week():
 @app.route("/days/current", methods=['GET'])
 @basic_auth.required
 def current_day():
-    chart = Chart(title='Dag X', labels=['one', 'two'])
-    washes = get_todays_washes()
+    chart = Chart(title='Dag X', labels=['one', 'two', 'three'])
+    washes, http_code = stats.get_todays_washes()
     ok, commented, unknown = filtered_count(washes)
     chart.add_serie('Tvättade', ok, "#4BC0C0")
     chart.add_serie('Kommenterade', commented, "#36A2EB")
     chart.add_serie('Okända', unknown, "#FF6384")
-    #return render_template('day.html', labels=chart.labels, bars=chart.get_bars(), title=chart.title)
-    return render_template('day.html', labels=['one', 'two'], bars=None, title='Dag X')
+    return render_template('day.html', series_names=chart.series_names(), bars=chart.get_series(), title=chart.title)
 
 @app.route("/overview", methods=['GET'])
 @basic_auth.required
@@ -55,6 +54,7 @@ def client_overview():
     
 def week_chart(weekdays, week_nbr):
     days = stats.get_washes_as_list(weekdays)
+    print(days)
     week_bookings = list(map(len, days))
 
     ok = stats.filter_count(days, stats.returned_check)
@@ -69,9 +69,9 @@ def week_chart(weekdays, week_nbr):
     return render_template('week_chart.html', labels=chart.labels, bars=chart.get_series(), title = chart.title, total=sum(week_bookings), traceable=traceable)
 
 def filtered_count(lst):
-    ok = stats.filter_count(lst, stats.returned_check)
-    commented = stats.filter_count(lst, stats.commented_check)
-    unknown = stats.filter_count(lst, stats.unknown_check)
+    ok = len(list(filter(stats.returned_check, lst)))
+    commented = len(list(filter(stats.commented_check, lst)))
+    unknown = len(list(filter(stats.unknown_check, lst)))
     return ok, commented, unknown
     
 if __name__ == '__main__':    
