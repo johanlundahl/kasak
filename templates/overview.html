@@ -1,22 +1,24 @@
-
 {% extends "base.html" %}
-{% block title %} Översikt {% endblock %}
   
 {% block page %}
-<div class="container-fluid car-list">
-    <h1>Overview</h1>
-    
-    <div class="row p-1 pt-2">
-        <div class="col-6">
-            <h5><span class="align-middle"><strong>Reg. nr.</strong></span></h5>
+<div class="container-fluid p-0">    
+    <div class="container-fluid">
+        <div class="row pt-2">
+            <div class="col-6">
+                <h5><span class="align-middle"><strong>Reg. nr.</strong></span></h5>
+            </div>
+            <div class="col-3">
+              <h5><span class="align-middle">Hämtas</span></h5>
+            </div>
+            <div class="col-3 text-center">
+              <h5><span class="align-middle">Lämnas</span></h5>
+            </div>
         </div>
     </div>
-    <!--div class="container"-->
+    
+    <div class="container-fluid car-list">
     {% for reg, start, end in cars %}
         <div class="row pt-3 pb-2">
-            <!--div class="col-2">
-             <h5><span class="fas fa-car-side align-middle text-success"></span></h5>
-            </div-->
             <div class="col-6">
               <h5><span class="text-monospace align-middle">{{ reg }}</span></h5>
             </div>
@@ -28,6 +30,6 @@
             </div>
         </div>
     {% endfor %}
-    <!--/div-->
+    </div>
 </div>
 {% endblock %}
