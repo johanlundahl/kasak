@@ -18,3 +18,5 @@ class Chart():
     def get_series(self):
         return self._data
         
+    def series_names(self):
+        return [name for name, serie, color in self._data]
